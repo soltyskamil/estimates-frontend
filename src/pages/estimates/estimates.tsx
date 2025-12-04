@@ -23,7 +23,7 @@ const SELECT_OPTIONS: OptionType[] = [
 
 const Estimates = () => {
   const { openPopup, closePopup } = usePopupContext();
-  const { addEstimate, sortEstimates } = useEstimateActions();
+  const { sortEstimates } = useEstimateActions();
 
   const { addEstimateAsync } = useAddEstimate();
 

@@ -7,16 +7,7 @@ import Estimates from "./pages/estimates/estimates";
 import { PopupContextProvider } from "./context/popup-context";
 import { EstimateSingle } from "./pages/estimate-single/estimate-single";
 import { EstimatesLayout } from "./components/estimates-layout/estimates-layout";
-import { useEffect } from "react";
-import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const body = {
-  name: "Pozycja",
-  type: "SERVICE",
-  value: 10000,
-  quantity: 8,
-};
 
 const Layout = () => {
   return (

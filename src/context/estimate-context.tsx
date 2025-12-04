@@ -157,16 +157,6 @@ export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
 
   const calculateServiceValue = useCallback((value: number) => value, []);
 
-  const calculateEstimateTotal = useCallback((estimate: EstimateDataProps) => {
-    const items = estimate.items;
-    if (!items) return 0;
-
-    return items.reduce((acc, curr) => {
-      acc += curr.value;
-      return acc;
-    }, 0);
-  }, []);
-
   const addNewMaterial = useCallback(
     (esId: string, formData: PositionFormData) => {
       const es = getEstimate(esId);

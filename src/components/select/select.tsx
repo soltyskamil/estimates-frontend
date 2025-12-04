@@ -1,9 +1,8 @@
-import { ArrowDownOutlined, CaretDownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined } from "@ant-design/icons";
 import "./select.scss";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import clsx from "clsx";
 import { useOnClickAway } from "src/hooks/useOnClickAway";
-import { useEstimateActions } from "src/context/estimate-context";
 export type OptionType = {
   value: string;
   text: string;

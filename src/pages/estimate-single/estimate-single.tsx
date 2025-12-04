@@ -3,28 +3,17 @@ import { useParams } from "react-router-dom";
 import EstimateSingleName from "src/components/estimate-single-name/estimate-single-name";
 import { EstimatesSingleTable } from "src/components/estimate-single-table/estimates-single-table";
 import EstimateSingleTotal from "src/components/estimate-single-total/estimate-single-total";
-import { useEstimateActions } from "src/context/estimate-context";
 import "./estimate-single.scss";
 import Select, { type OptionType } from "src/components/select/select";
 import { usePopupContext } from "src/context/popup-context";
-import {
-  PositionForm,
-  type PositionFormData,
-} from "src/components/forms/position-form/position-form";
+import { PositionForm } from "src/components/forms/position-form/position-form";
 import ServiceForm from "src/components/forms/service-form/service-form";
 import {
   useEditEstimateName,
-  useGetEstimates,
   useGetSingleEstimate,
 } from "src/api/estimates/useApiEstimates";
-import {
-  useAddEstimateItem,
-  useDeleteEstimateItem,
-} from "src/api/estimates/useApiEstimatesItems";
-import type {
-  AddItemToEstimateBody,
-  AddItemToEstimateParams,
-} from "src/types/estimates.types";
+import { useAddEstimateItem } from "src/api/estimates/useApiEstimatesItems";
+import type { AddItemToEstimateBody } from "src/types/estimates.types";
 
 const SINGLE_SELECT_OPTIONS: OptionType[] = [
   { value: "SERVICE", text: "Dodaj usługę" },

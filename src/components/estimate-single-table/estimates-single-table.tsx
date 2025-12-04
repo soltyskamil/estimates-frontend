@@ -1,23 +1,13 @@
 import { useWindowSize } from "@uidotdev/usehooks";
 import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import { TABLE_BREAKPOINT } from "../estimates-table/estimates-table";
-import type {
-  EstimateDataProps,
-  EstimateItemsProps,
-  EstimateItemType,
-} from "src/mock_data/estimates";
+import type { EstimateItemType } from "src/mock_data/estimates";
 import "./estimates-single-table.scss";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { PositionTile } from "../position-tile/position-tile";
-import { useEstimateActions } from "src/context/estimate-context";
 import { usePopupContext } from "src/context/popup-context";
-import {
-  PositionForm,
-  type PositionFormData,
-} from "../forms/position-form/position-form";
-import ServiceForm, {
-  type ServiceFormData,
-} from "../forms/service-form/service-form";
+import { PositionForm } from "../forms/position-form/position-form";
+import ServiceForm from "../forms/service-form/service-form";
 import type {
   EditItemFromEstimateBody,
   EstimateItem,

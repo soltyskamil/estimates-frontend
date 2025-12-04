@@ -9,10 +9,6 @@ import {
 import { Popup } from "src/components/popup/popup";
 
 type PopupTypes = "NEW-ESTIMATE" | "MATERIAL" | "SERVICE";
-type PopupActions = {
-  onSubmit: () => void;
-  onClose: () => void;
-};
 
 type PopupState = {
   type: PopupTypes;

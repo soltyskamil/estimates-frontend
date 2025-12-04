@@ -13,7 +13,7 @@ import {
 export const TABLE_BREAKPOINT = 740;
 
 export const EstimatesTable = () => {
-  const { estimatesList, isLoading, isSuccess, isError } = useGetEstimates();
+  const { estimatesList, isLoading, isError } = useGetEstimates();
   const { deleteEstimateAsync } = useDeleteEstimate();
 
   const navigate = useNavigate();
