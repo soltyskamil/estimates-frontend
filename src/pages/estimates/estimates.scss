@@ -6,6 +6,10 @@
   min-height: 100vh;
   background-color: var(--gray-100);
 
+  @include md-max {
+    padding: 12px;
+  }
+
   &__header {
     margin-bottom: 24px;
   }
@@ -26,18 +30,16 @@
   &__actions {
     display: flex;
     gap: 12px;
-
-    @include md-max {
-      flex-direction: column;
-    }
+    flex-wrap: wrap;
   }
 
   &__search {
+    min-width: 270px;
     display: flex;
   }
 
   &__end {
-    margin-left: auto;
+    // margin-left: auto;
     display: flex;
     gap: 12px;
 

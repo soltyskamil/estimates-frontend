@@ -55,6 +55,13 @@ export const EstimatesTable = () => {
 
   const { data } = estimatesList!;
 
+  const totalValueOfEstimates = () => (
+    <p className="estimates-total">
+      Wartość całkowita kosztorysów:
+      {estimatesList?.meta.totalValueOfEstimates}zł
+    </p>
+  );
+
   if (!displayTable)
     return (
       <div className="estimates-tiles">
@@ -73,45 +80,50 @@ export const EstimatesTable = () => {
             />
           );
         })}
+        {totalValueOfEstimates()}
       </div>
     );
 
   return (
-    <table className="estimates-table">
-      <thead className="estimates-table__head">
-        <tr className="estimates-table__row">
-          <th className="estimates-table__th">Nazwa kosztorysu</th>
-          <th className="estimates-table__th">Data utworzenia</th>
-          <th className="estimates-table__th">Suma całkowita (zł)</th>
-          <th className="estimates-table__th">Akcje</th>
-        </tr>
-      </thead>
-      <tbody className="estimates-table__body">
-        {data.map((esd) => {
-          const date = new Date(esd.createdAt)
-            .toLocaleDateString()
-            .replaceAll("/", ".");
-          const priceFixed = esd.totalValue.toFixed(2).replace(".", ",");
+    <div className="estimates-table-wrapper">
+      <table className="estimates-table">
+        <thead className="estimates-table__head">
+          <tr className="estimates-table__row">
+            <th className="estimates-table__th">Nazwa kosztorysu</th>
+            <th className="estimates-table__th">Data utworzenia</th>
+            <th className="estimates-table__th">Suma całkowita (zł)</th>
+            <th className="estimates-table__th">Akcje</th>
+          </tr>
+        </thead>
+        <tbody className="estimates-table__body">
+          {data.map((esd) => {
+            const date = new Date(esd.createdAt)
+              .toLocaleDateString()
+              .replaceAll("/", ".");
+            const priceFixed = esd.totalValue.toFixed(2).replace(".", ",");
 
-          return (
-            <tr className="estimates-table__row" key={`esd-${esd._id}`}>
-              <td className="estimates-table__name">{esd.name}</td>
-              <td className="estimates-table__date">{date}</td>
-              <td className="estimates-table__value">{priceFixed}zł</td>
-              <td className="estimates-table__actions">
-                <EyeOutlined
-                  style={{ color: "var(--blue-600)" }}
-                  onClick={() => onView(esd._id)}
-                />
-                <DeleteOutlined
-                  style={{ color: "red" }}
-                  onClick={() => onDelete(esd._id)}
-                />
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+            return (
+              <tr className="estimates-table__row" key={`esd-${esd._id}`}>
+                <td className="estimates-table__name">{esd.name}</td>
+                <td className="estimates-table__date">{date}</td>
+                <td className="estimates-table__value">{priceFixed}zł</td>
+                <td className="estimates-table__actions">
+                  <EyeOutlined
+                    style={{ color: "var(--blue-600)" }}
+                    onClick={() => onView(esd._id)}
+                  />
+                  <DeleteOutlined
+                    style={{ color: "red" }}
+                    onClick={() => onDelete(esd._id)}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
+      {totalValueOfEstimates()}
+    </div>
   );
 };

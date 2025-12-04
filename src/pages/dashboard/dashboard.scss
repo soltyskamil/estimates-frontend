@@ -6,6 +6,10 @@
   display: grid;
   grid-template-columns: auto 1fr;
 
+  @include md-max {
+    padding: 8px;
+  }
+
   &__sidebar {
     padding: 8px;
     width: 240px;

@@ -1,7 +1,7 @@
 @import "styles/mixins";
 
 .position-tile {
-  background-color: white;
+  background-color: var(--gray-100);
   display: flex;
   padding: 16px;
   gap: 8px;
@@ -23,6 +23,9 @@
   }
 
   &__name {
+    max-width: 100%;
+    word-break: break-all;
+
     font-size: 16px;
   }
 
@@ -44,6 +47,8 @@
   }
 
   &__label {
+    max-width: 50%;
+    word-break: break-all;
     font-size: 16px;
 
     &--gray {

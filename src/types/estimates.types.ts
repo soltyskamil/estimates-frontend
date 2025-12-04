@@ -5,6 +5,7 @@ export interface Pageable {
   limit: number;
   totalItems: number;
   totalPages: number;
+  totalValueOfEstimates?: number;
 }
 export type Estimate = {
   _id: string;

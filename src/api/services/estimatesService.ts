@@ -38,10 +38,21 @@ const ESTIMATES_API_URLS = {
 
 class EstimatesService {
   async getAllEstimates(params?: QuerySortPageableParams) {
+    const fixedParams = (params?: QuerySortPageableParams) => {
+      if (!params) return;
+      const fixed = {} as QuerySortPageableParams;
+      Object.assign(
+        fixed,
+        Object.fromEntries(Object.entries(params).filter(([_, v]) => !!v))
+      );
+
+      return fixed;
+    };
+
     try {
       const res = await axiosClient.get<EstimateListResponse>(
         ESTIMATES_API_URLS.LIST,
-        { params }
+        { params: fixedParams(params) }
       );
       return res.data;
     } catch (err) {

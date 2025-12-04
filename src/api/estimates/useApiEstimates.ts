@@ -6,15 +6,27 @@ import type {
   EditEstimateNameParams,
   QuerySortPageableParams,
 } from "src/types/estimates.types";
+const fixedParams = (params?: QuerySortPageableParams) => {
+  if (!params) return;
+  const fixed = {} as QuerySortPageableParams;
+  Object.assign(
+    fixed,
+    Object.fromEntries(Object.entries(params).filter(([_, v]) => !!v))
+  );
+
+  return fixed;
+};
 
 export const useGetEstimates = (params?: QuerySortPageableParams) => {
+  const paramsKey = JSON.stringify(fixedParams(params));
+
   const {
     data: estimatesList,
     isLoading,
     isError,
     isSuccess,
   } = useQuery({
-    queryKey: ["estimates", "list", JSON.stringify(params)],
+    queryKey: ["estimates", "list", paramsKey],
     queryFn: async () => {
       const res = await estimatesService.getAllEstimates(params);
       return res;

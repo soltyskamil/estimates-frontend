@@ -55,6 +55,10 @@ export const useAddEstimateItem = () => {
       qc.invalidateQueries({
         queryKey: ["estimate", "single", params._id],
       });
+      qc.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === "estimates" && query.queryKey[1] === "list",
+      });
     },
   });
 
@@ -86,8 +90,14 @@ export const useEditEstimateItem = () => {
       return res.data;
     },
     onSuccess: (params) => {
+      console.log("d");
       qc.invalidateQueries({
         queryKey: ["estimate", "single", params._id],
+      });
+      console.log("dd");
+      qc.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === "estimates" && query.queryKey[1] === "list",
       });
     },
   });
@@ -120,6 +130,10 @@ export const useDeleteEstimateItem = () => {
     },
     onSuccess: async (params) => {
       qc.invalidateQueries({ queryKey: ["estimate", "single", params._id] });
+      qc.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === "estimates" && query.queryKey[1] === "list",
+      });
     },
   });
 

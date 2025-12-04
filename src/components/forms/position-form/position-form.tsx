@@ -51,15 +51,17 @@ export const PositionForm = ({
         }
   );
 
+  console.log(formData);
   const validator = useCallback((formData: AddItemToEstimateBody) => {
-    const { name, quantity, unit, unitPrice, totalPrice } = formData;
+    const { name, quantity, unit, unitPrice } = formData;
     const errors = {} as FormErrors;
 
-    if (totalPrice <= 0) errors.totalPrice = "Zbyt mała wartość";
+    // if (totalPrice <= 0) errors.totalPrice = "Zbyt mała wartość";
     if (name.length <= 0) errors.name = "Zbyt krótka nazwa, minimum dwa znaki";
     if (!quantity || quantity <= 0) errors.quantity = "Zbyt mała ilośc";
     if (!unit) errors.unit = "Brak wybranego unit";
     if (!unitPrice || unitPrice <= 0) errors.unitPrice = "Zbyt mała wartość";
+    console.log(errors);
 
     return errors;
   }, []) as Validator<Omit<AddItemToEstimateBody, "type">>;
@@ -71,7 +73,10 @@ export const PositionForm = ({
 
   const handleFormChange = useCallback(
     <K extends keyof PositionFormData>(key: K, value: PositionFormData[K]) => {
-      setFormData((p) => ({ ...p, [key]: value }));
+      setFormData((p) => ({
+        ...p,
+        [key]: key === "unit" && p[key] === value ? null : value,
+      }));
     },
     []
   );
@@ -91,6 +96,7 @@ export const PositionForm = ({
       onSubmit={(e) => {
         e.preventDefault();
         const validated = validateForm(formData);
+
         if (validated) onSubmit(formData);
       }}
     >

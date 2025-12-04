@@ -16,9 +16,9 @@
   position: relative;
   width: 155px;
 
-  @include md-max {
-    width: auto;
-  }
+  // @include md-max {
+  //   width: auto;
+  // }
 
   &__button {
     text-wrap: wrap;

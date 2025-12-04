@@ -124,48 +124,50 @@ export const EstimatesSingleTable = ({ data }: EstimateSingleTableProps) => {
     );
 
   return (
-    <table className="estimate-table">
-      <thead className="estimate-table__head">
-        <tr className="estimate-table__row">
-          <th className="estimate-table__th">Lp.</th>
-          <th className="estimate-table__th">Typ</th>
-          <th className="estimate-table__th">Nazwa</th>
-          <th className="estimate-table__th">Ilość</th>
-          <th className="estimate-table__th">Jednostka</th>
-          <th className="estimate-table__th">Cena jedn. netto</th>
-          <th className="estimate-table__th">Wartość</th>
-          <th className="estimate-table__th">Akcje</th>
-        </tr>
-      </thead>
-      <tbody className="estimate-table__body">
-        {data.items!.map((v, i) => {
-          return (
-            <tr className="estimate-table__row" key={`${v._id}-${i}`}>
-              <td className="estimate-table__position">{i + 1}</td>
-              <td className="estimate-table__type">{v.type}</td>
-              <td className="estimate-table__name">{v.name}</td>
-              <td className="estimate-table__quantity">{v.quantity}</td>
-              <td className="estimate-table__unit">{v.unit}</td>
-              <td className="estimate-table__unitprice">{v.unitPrice}</td>
-              <td className="estimate-table__value">{v.totalPrice}</td>
-              <td className="estimate-table__actions">
-                <DeleteOutlined
-                  style={{ color: "red" }}
-                  onClick={async () => {
-                    await deleteEstimateItemAsync({
-                      params: { estimateId: data._id, itemId: v._id },
-                    });
-                  }}
-                />
-                <EditOutlined
-                  style={{ color: "var(--blue-600)" }}
-                  onClick={() => handlePopup(v.type, v, data._id)}
-                />
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <div className="estimate-table-wrapper">
+      <table className="estimate-table">
+        <thead className="estimate-table__head">
+          <tr className="estimate-table__row">
+            <th className="estimate-table__th">Lp.</th>
+            <th className="estimate-table__th">Typ</th>
+            <th className="estimate-table__th">Nazwa</th>
+            <th className="estimate-table__th">Ilość</th>
+            <th className="estimate-table__th">Jednostka</th>
+            <th className="estimate-table__th">Cena jedn. netto</th>
+            <th className="estimate-table__th">Wartość</th>
+            <th className="estimate-table__th">Akcje</th>
+          </tr>
+        </thead>
+        <tbody className="estimate-table__body">
+          {data.items!.map((v, i) => {
+            return (
+              <tr className="estimate-table__row" key={`${v._id}-${i}`}>
+                <td className="estimate-table__position">{i + 1}</td>
+                <td className="estimate-table__type">{v.type}</td>
+                <td className="estimate-table__name">{v.name}</td>
+                <td className="estimate-table__quantity">{v.quantity}</td>
+                <td className="estimate-table__unit">{v.unit}</td>
+                <td className="estimate-table__unitprice">{v.unitPrice}</td>
+                <td className="estimate-table__value">{v.totalPrice}</td>
+                <td className="estimate-table__actions">
+                  <DeleteOutlined
+                    style={{ color: "red" }}
+                    onClick={async () => {
+                      await deleteEstimateItemAsync({
+                        params: { estimateId: data._id, itemId: v._id },
+                      });
+                    }}
+                  />
+                  <EditOutlined
+                    style={{ color: "var(--blue-600)" }}
+                    onClick={() => handlePopup(v.type, v, data._id)}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };

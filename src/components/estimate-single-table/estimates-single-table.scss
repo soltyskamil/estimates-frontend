@@ -1,9 +1,10 @@
 @import "styles/mixins";
 
 .estimate-tiles {
-  border: 1px solid var(--gray-400);
+  // border: 1px solid var(--gray-400);
   border-radius: 12px;
   overflow: hidden;
+  // padding: 12px;
 
   &__divider {
     height: 1px;
@@ -13,10 +14,20 @@
 
 .estimate-table {
   width: 100%;
+  min-width: 1200px;
   table-layout: fixed;
   border-radius: 12px;
   overflow: hidden;
   border-collapse: collapse;
+
+  &-wrapper {
+    display: block;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   &__th {
     text-align: right;
@@ -29,12 +40,13 @@
     width: 5%;
   }
 
-  &__th:nth-child(3) {
-    width: 25%;
-  }
+  // &__th:nth-child(3) {
+  //   width: 25%;
+  // }
 
   td {
     text-align: right;
+    word-break: break-all;
   }
 
   td:nth-of-type(1),

@@ -7,14 +7,28 @@
   gap: 12px;
 }
 
+.estimates-total {
+  margin-top: 24px;
+  color: var(--gray-700);
+}
+
 .estimates-table {
   width: 100%;
+  min-width: 1200px;
   table-layout: fixed;
   margin-top: 30px;
   border-radius: 12px;
   overflow: hidden;
   border-collapse: collapse;
   border: 1px solid var(--gray-300);
+
+  &-wrapper {
+    display: block;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   &__th {
     text-align: left;
@@ -25,6 +39,10 @@
 
   &__th:first-child {
     width: 33%;
+  }
+
+  td {
+    word-break: break-all;
   }
 
   td:nth-of-type(3),
