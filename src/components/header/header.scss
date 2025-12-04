@@ -23,6 +23,9 @@
 
 .app-navigation {
   background-color: white;
+  box-shadow: 0 5px 5px rgba(182, 182, 182, 0.32);
+  -moz-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.32);
+  -webkit-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.32);
 
   &__inner {
     padding: 16px 24px;
@@ -30,7 +33,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    z-index: 999;
+    z-index: 900;
     background-color: white;
   }
 

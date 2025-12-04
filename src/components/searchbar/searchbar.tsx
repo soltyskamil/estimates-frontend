@@ -12,13 +12,13 @@ type Searchbarprops = {
 };
 
 export const EstimateSearchbar = ({ searchFor }: EstimateSearchbar) => {
-  const { filterEstimates } = useEstimateActions();
+  const { searchEstimates } = useEstimateActions();
   const [inputValue, setInputValue] = useState("");
 
   const onInputChange = useCallback((v: string) => setInputValue(v), []);
 
   useEffect(() => {
-    filterEstimates(inputValue);
+    searchEstimates(inputValue);
   }, [inputValue]);
 
   return (

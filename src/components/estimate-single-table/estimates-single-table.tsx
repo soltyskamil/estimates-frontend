@@ -30,7 +30,6 @@ export const EstimatesSingleTable = ({ data }: EstimateSingleTableProps) => {
   const [displayTable, setDisplayTable] = useState(
     window.innerWidth >= TABLE_BREAKPOINT
   );
-  // console.log(data);
 
   useEffect(() => {
     if (!width) return;
@@ -110,6 +109,12 @@ export const EstimatesSingleTable = ({ data }: EstimateSingleTableProps) => {
               <PositionTile
                 data={{ ...v, position: i + 1 }}
                 passedStyles={borderBottom}
+                onDelete={async () => {
+                  await deleteEstimateItemAsync({
+                    params: { estimateId: data._id, itemId: v._id },
+                  });
+                }}
+                onEdit={() => handlePopup(v.type, v, data._id)}
               />
             </>
           );

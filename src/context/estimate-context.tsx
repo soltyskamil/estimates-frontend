@@ -16,11 +16,12 @@ import {
 
 type EstimateContextState = {
   data: EstimateDataProps[];
+  queryState: QueryState;
 };
 
 type EstimateContextActions = {
   sortEstimates: (ot: OptionType) => void;
-  filterEstimates: (v: string) => void;
+  searchEstimates: (v: string) => void;
   addEstimate: (estimateName: string) => void;
   deleteEstimate: (estimateId: string) => void;
   getEstimate: (estimateId: string) => EstimateDataProps | null;
@@ -41,10 +42,24 @@ const EstimateContextActions = createContext<EstimateContextActions | null>(
   null
 );
 
+export type sortDir = "asc" | "desc";
+export type sortBy = "createdAt" | "name" | "totalValue";
+
+export type QueryState = {
+  search: string;
+  sortDir: sortDir | null;
+  sortBy: sortBy | null;
+};
+
 export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const [data, setData] = useState<EstimateDataProps[]>(MOCK_ESTIMATES);
+  const [queryState, setQueryState] = useState<QueryState>({
+    search: "",
+    sortDir: null,
+    sortBy: null,
+  });
 
   const getEstimate = useCallback(
     (estimateId: string) => {
@@ -208,27 +223,29 @@ export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
     [data, getEstimate]
   );
 
-  const sortEstimates = useCallback(
-    (ot: OptionType) => {
-      const sliced = data.slice();
-      switch (ot.value) {
-        case "date":
-          setData(
-            sliced.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-          );
-          break;
-        case "name":
-          setData(sliced.sort((a, b) => a.name.localeCompare(b.name)));
-          break;
-        case "suma":
-          setData(sliced.sort((a, b) => a.totalValue - b.totalValue));
-          break;
-      }
-    },
-    [data]
+  const searchEstimates = useCallback(
+    (search: string) => setQueryState((p) => ({ ...p, search })),
+    [queryState, data]
   );
 
-  const state = useMemo(() => ({ data }), [data]);
+  const sortEstimates = useCallback(
+    (ot: OptionType) => {
+      if (ot.value === "desc" || ot.value === "asc") {
+        setQueryState((p) => ({
+          ...p,
+          sortDir: p.sortDir === ot.value ? null : (ot.value as sortDir),
+        }));
+      } else {
+        setQueryState((p) => ({
+          ...p,
+          sortBy: p.sortBy === ot.value ? null : (ot.value as sortBy),
+        }));
+      }
+    },
+    [data, queryState]
+  );
+
+  const state = useMemo(() => ({ data, queryState }), [data, queryState]);
 
   const actions = useMemo(
     () => ({
@@ -237,7 +254,7 @@ export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
       deleteEstimate,
       addEstimate,
       viewEstimate,
-      filterEstimates,
+      searchEstimates,
       sortEstimates,
       getEstimate,
       editEstimatePosition,
@@ -254,7 +271,7 @@ export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
       addEstimate,
       viewEstimate,
       getEstimate,
-      filterEstimates,
+      searchEstimates,
       sortEstimates,
     ]
   );

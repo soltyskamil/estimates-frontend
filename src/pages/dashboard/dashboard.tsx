@@ -11,7 +11,12 @@ export const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard__sidebar">
-        <Button text="Kosztorysy" variant="FILLED" onPress={goToEstimates} />
+        <Button
+          passedStyles={{ width: "100%" }}
+          text="Kosztorysy"
+          variant="FILLED"
+          onPress={goToEstimates}
+        />
       </div>
       <div className="dashboard__inner">
         <Outlet />

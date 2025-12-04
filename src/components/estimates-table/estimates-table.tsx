@@ -9,11 +9,24 @@ import {
   useDeleteEstimate,
   useGetEstimates,
 } from "src/api/estimates/useApiEstimates";
+import { useEstimateState } from "src/context/estimate-context";
+import { useDebouncedValue } from "src/hooks/useDebouncedValue";
 
 export const TABLE_BREAKPOINT = 740;
 
 export const EstimatesTable = () => {
-  const { estimatesList, isLoading, isError } = useGetEstimates();
+  const { queryState } = useEstimateState();
+  const { debouncedValue } = useDebouncedValue({
+    value: queryState.search,
+    delay: 250,
+  });
+
+  const { estimatesList, isLoading, isError } = useGetEstimates({
+    search: debouncedValue,
+    sortBy: queryState.sortBy ?? undefined,
+    sortDir: queryState.sortDir ?? undefined,
+  });
+
   const { deleteEstimateAsync } = useDeleteEstimate();
 
   const navigate = useNavigate();

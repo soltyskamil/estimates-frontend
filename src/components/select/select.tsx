@@ -3,8 +3,10 @@ import "./select.scss";
 import { useCallback, useRef, useState } from "react";
 import clsx from "clsx";
 import { useOnClickAway } from "src/hooks/useOnClickAway";
+import type { sortBy, sortDir } from "src/context/estimate-context";
+import type { EstimateItemTypeEnum } from "src/types/estimates.types";
 export type OptionType = {
-  value: string;
+  value: sortDir | sortBy | EstimateItemTypeEnum;
   text: string;
 };
 
@@ -16,8 +18,6 @@ type SelectProps = {
 };
 
 const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
-  // const { sortEstimates } = useEstimateActions();
-
   const [activeOption, setActiveOption] = useState<OptionType | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
   }, []);
 
   const handleActiveOption = useCallback((option: OptionType) => {
-    setActiveOption(option);
+    setActiveOption((p) => (p === option ? null : option));
     onActiveOption(option);
     toggleSelect();
   }, []);
@@ -39,6 +39,7 @@ const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
     onAwayCallback: toggleSelect,
     doWhile: isOpen,
   });
+
   return (
     <div className={"select"} ref={selectRef}>
       <button

@@ -3,7 +3,7 @@
   border: 1px solid var(--gray-300);
   border-radius: 8px;
   padding: 24px;
-  height: 200vh;
+  min-height: 100vh;
   background-color: var(--gray-100);
 
   &__header {
@@ -37,10 +37,13 @@
   }
 
   &__end {
-    justify-content: space-between;
+    margin-left: auto;
     display: flex;
     gap: 12px;
-    width: 100%;
+
+    @include md-max {
+      margin: unset;
+    }
 
     @include sm-max {
       flex-direction: column;

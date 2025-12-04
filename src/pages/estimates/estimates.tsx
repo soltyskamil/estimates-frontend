@@ -11,14 +11,19 @@ import { useCallback } from "react";
 import { useAddEstimate } from "src/api/estimates/useApiEstimates";
 const SELECT_OPTIONS: OptionType[] = [
   {
-    value: "date",
+    value: "createdAt",
     text: "Data utworzenia",
   },
   {
     value: "name",
     text: "Nazwa",
   },
-  { value: "suma", text: "Suma" },
+  { value: "totalValue", text: "Suma" },
+];
+
+const SORT_OPTIONS: OptionType[] = [
+  { value: "asc", text: "Rosnąco" },
+  { value: "desc", text: "Malejąco" },
 ];
 
 const Estimates = () => {
@@ -47,13 +52,20 @@ const Estimates = () => {
         <div className="estimates__search">
           <EstimateSearchbar searchFor="estimates__search" />
         </div>
+        <Select
+          options={SELECT_OPTIONS}
+          onActiveOption={onActiveOption}
+          name="Sortuj wg:"
+          changeName={true}
+        />
+        <Select
+          options={SORT_OPTIONS}
+          onActiveOption={onActiveOption}
+          name="Kolejność"
+          changeName={true}
+        />
+
         <div className="estimates__end">
-          <Select
-            options={SELECT_OPTIONS}
-            onActiveOption={onActiveOption}
-            name="Sortuj wg:"
-            changeName={true}
-          />
           <Button
             icon={
               <PlusSquareOutlined

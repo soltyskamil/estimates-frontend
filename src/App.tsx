@@ -8,6 +8,7 @@ import { PopupContextProvider } from "./context/popup-context";
 import { EstimateSingle } from "./pages/estimate-single/estimate-single";
 import { EstimatesLayout } from "./components/estimates-layout/estimates-layout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import DashboardWelcome from "./components/dashboard-welcome/dashboard-welcome";
 
 const Layout = () => {
   return (
@@ -25,12 +26,17 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <div>Wystapil błąd</div>,
     children: [
-      { path: "/", element: <Home /> },
+      // { path: "/", element: <Dashboard /> },
       {
-        path: "/dashboard",
+        path: "/",
         element: <Dashboard />,
         errorElement: <div>Wystapil błąd</div>,
         children: [
+          {
+            path: "/",
+            index: true,
+            element: <DashboardWelcome />,
+          },
           {
             path: "/dashboard/estimates",
             element: <EstimatesLayout />,

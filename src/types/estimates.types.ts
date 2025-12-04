@@ -1,3 +1,5 @@
+import type { sortBy, sortDir } from "src/context/estimate-context";
+
 export interface Pageable {
   page: number;
   limit: number;
@@ -14,7 +16,8 @@ export type Estimate = {
 
 export interface QuerySortPageableParams {
   search?: string;
-  sortDir?: "desc" | "asc";
+  sortBy?: sortBy;
+  sortDir?: sortDir;
   page?: number;
   limit?: number;
 }

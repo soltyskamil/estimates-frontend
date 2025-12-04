@@ -4,18 +4,19 @@ import type {
   AddEstimateParams,
   DeleteEstimateParams,
   EditEstimateNameParams,
+  QuerySortPageableParams,
 } from "src/types/estimates.types";
 
-export const useGetEstimates = () => {
+export const useGetEstimates = (params?: QuerySortPageableParams) => {
   const {
     data: estimatesList,
     isLoading,
     isError,
     isSuccess,
   } = useQuery({
-    queryKey: ["estimates", "list"],
+    queryKey: ["estimates", "list", JSON.stringify(params)],
     queryFn: async () => {
-      const res = await estimatesService.getAllEstimates();
+      const res = await estimatesService.getAllEstimates(params);
       return res;
     },
   });

@@ -11,15 +11,18 @@ export const Popup = () => {
   const { title, body } = openedPopup;
 
   return createPortal(
-    <div className="popup">
-      <div className="popup__header">
-        <h3 className="popup__title">{title}</h3>
-        <button className="popup__close" onClick={closePopup}>
-          <CloseOutlined style={{ fontSize: "18px" }} />
-        </button>
+    <>
+      <div className="overlay" />
+      <div className="popup">
+        <div className="popup__header">
+          <h3 className="popup__title">{title}</h3>
+          <button className="popup__close" onClick={closePopup}>
+            <CloseOutlined style={{ fontSize: "18px" }} />
+          </button>
+        </div>
+        <div className="popup__inner">{body}</div>
       </div>
-      <div className="popup__inner">{body}</div>
-    </div>,
+    </>,
     document.body
   );
 };

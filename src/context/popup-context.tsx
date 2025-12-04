@@ -29,11 +29,23 @@ export const PopupContextProvider: React.FC<PropsWithChildren> = ({
 }) => {
   const [openedPopup, setOpenedPopup] = useState<PopupState | null>(null);
 
-  const openPopup = useCallback(
-    (state: PopupState) => setOpenedPopup(state),
+  const disableBodyScroll = useCallback(
+    () => (document.body.style.overflow = "hidden"),
     []
   );
-  const closePopup = useCallback(() => setOpenedPopup(null), []);
+
+  const enableBodyScroll = useCallback(
+    () => (document.body.style.overflow = "auto"),
+    []
+  );
+  const openPopup = useCallback((state: PopupState) => {
+    setOpenedPopup(state);
+    disableBodyScroll();
+  }, []);
+  const closePopup = useCallback(() => {
+    setOpenedPopup(null);
+    enableBodyScroll();
+  }, []);
 
   const state = useMemo(
     () => ({ openPopup, closePopup, openedPopup }),

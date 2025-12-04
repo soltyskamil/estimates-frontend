@@ -20,11 +20,9 @@ const Header = () => {
   }, [width, isMenuOpen]);
 
   const goToDashboard = useCallback(() => navigate("/dashboard"), []);
-  const goToLogin = useCallback(() => navigate("/login"), []);
 
   const links = (
     <>
-      <Button text="Zaloguj się" variant="INVISIBLE" onPress={goToLogin} />
       <Button text="Rozpocznij" variant="FILLED" onPress={goToDashboard} />
     </>
   );

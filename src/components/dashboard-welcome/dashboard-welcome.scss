@@ -1,0 +1,11 @@
+@import "styles/mixins";
+.dashboard-welcome {
+  &__title {
+    font-size: 36px;
+    line-height: 150%;
+  }
+
+  &__subtitle {
+    font-size: 18px;
+  }
+}
