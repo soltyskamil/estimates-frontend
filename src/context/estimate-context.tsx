@@ -157,13 +157,13 @@ export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
     [data]
   );
 
-  const filterEstimates = useCallback(
-    (v: string) => {
-      const sliced = data.slice();
-      setData(sliced.filter((esp) => esp.name.includes(v)));
-    },
-    [data]
-  );
+  // const filterEstimates = useCallback(
+  //   (v: string) => {
+  //     const sliced = data.slice();
+  //     setData(sliced.filter((esp) => esp.name.includes(v)));
+  //   },
+  //   [data]
+  // );
 
   const calculateMaterialValue = useCallback(
     (unitPrice: number, quantity: number) => unitPrice * quantity,
