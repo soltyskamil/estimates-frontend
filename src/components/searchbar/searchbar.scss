@@ -1,0 +1,37 @@
+@import "styles/mixins";
+.searchbar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--gray-200);
+  gap: 8px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  flex: 1;
+
+  &:focus-within {
+    border-color: var(--blue-600);
+  }
+
+  &__icon {
+    color: var(--gray-700);
+  }
+
+  &__input {
+    width: 100%;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    background-color: inherit;
+    color: var(--gray-700);
+
+    &::placeholder {
+      color: var(--gray-700);
+    }
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      display: none;
+    }
+  }
+}

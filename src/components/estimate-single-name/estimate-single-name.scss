@@ -1,0 +1,35 @@
+@import "styles/mixins";
+
+.estimate-name {
+  display: flex;
+  align-items: center;
+
+  &__edit {
+    flex: 1;
+    display: flex;
+  }
+
+  &__label {
+    color: var(--gray-700);
+    font-size: 16px;
+  }
+
+  input {
+    outline: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-300);
+    color: var(--gray-700);
+    font-size: 16px;
+    display: flex;
+    width: 100%;
+
+    &:focus {
+      border-color: var(--blue-600);
+    }
+  }
+
+  &__toggle {
+    padding: 8px;
+  }
+}

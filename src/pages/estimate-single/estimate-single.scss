@@ -1,0 +1,8 @@
+@import "styles/mixins";
+.estimate-single {
+  &__top {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr auto;
+  }
+}

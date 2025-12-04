@@ -1,0 +1,39 @@
+@import "styles/mixins";
+.position-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  input {
+    outline: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-300);
+    color: var(--gray-700);
+    font-size: 16px;
+
+    &:focus {
+      border-color: var(--blue-600);
+    }
+  }
+
+  &__name,
+  &__unitprice,
+  &__quantity,
+  &__unit {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__quanun {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: end;
+    gap: 12px;
+  }
+}

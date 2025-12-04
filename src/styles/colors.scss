@@ -1,0 +1,62 @@
+:root {
+  /* BLUE – główny akcent, od bardzo jasnego do bardzo ciemnego */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6; /* główny kolor przycisków / linków */
+  --blue-600: #2563eb; /* hover / mocniejszy akcent */
+  --blue-700: #1d4ed8; /* aktywne stany */
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+  --blue-950: #0b1120;
+
+  /* przydatne skróty */
+  --blue-bg-soft: var(--blue-50);
+  --blue-border: var(--blue-200);
+  --blue-text: var(--blue-700);
+  --blue-button: var(--blue-600);
+  --blue-button-h: var(--blue-700);
+
+  /* NEUTRAL / TŁA */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --gray-950: #020617;
+
+  --bg-body: var(--gray-50);
+  --bg-card: #ffffff;
+  --text-main: var(--gray-900);
+  --text-muted: var(--gray-500);
+  --border-soft: var(--gray-200);
+
+  /* CYAN– jako delikatny secondary do niebieskiego */
+  --cyan-50: #ecfeff;
+  --cyan-100: #cffafe;
+  --cyan-200: #a5f3fc;
+  --cyan-300: #67e8f9;
+  --cyan-400: #22d3ee;
+  --cyan-500: #06b6d4;
+  --cyan-600: #0891b2;
+  --cyan-700: #0e7490;
+  --cyan-800: #155e75;
+  --cyan-900: #164e63;
+
+  /* STANY SYSTEMOWE */
+  --green-500: #22c55e;
+  --green-soft: #dcfce7;
+
+  --red-500: #ef4444;
+  --red-soft: #fee2e2;
+
+  --yellow-500: #eab308;
+  --yellow-soft: #fef9c3;
+}

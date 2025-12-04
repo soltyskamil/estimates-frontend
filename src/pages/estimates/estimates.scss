@@ -1,0 +1,49 @@
+@import "styles/mixins.scss";
+.estimates {
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  padding: 24px;
+  height: 200vh;
+  background-color: var(--gray-100);
+
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: var(--gray-700);
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  &__subtitle {
+    margin-top: 8px;
+    color: var(--gray-600);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+
+    @include md-max {
+      flex-direction: column;
+    }
+  }
+
+  &__search {
+    display: flex;
+  }
+
+  &__end {
+    justify-content: space-between;
+    display: flex;
+    gap: 12px;
+    width: 100%;
+
+    @include sm-max {
+      flex-direction: column;
+    }
+  }
+}

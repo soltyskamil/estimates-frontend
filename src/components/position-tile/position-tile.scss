@@ -1,0 +1,83 @@
+@import "styles/mixins";
+
+.position-tile {
+  background-color: white;
+  display: flex;
+  padding: 16px;
+  gap: 8px;
+
+  &__number {
+    padding-top: 1px;
+    color: var(--gray-400);
+    font-size: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  &__inner {
+    flex: 1;
+    flex-direction: column;
+  }
+
+  &__type {
+    margin-bottom: 8px;
+  }
+
+  &__name {
+    font-size: 16px;
+  }
+
+  &__details {
+    margin-top: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  &__quantity,
+  &__unitprice,
+  &__total {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__total {
+    margin-top: 4px;
+  }
+
+  &__label {
+    font-size: 16px;
+
+    &--gray {
+      color: var(--gray-600);
+    }
+
+    &--xs {
+      font-size: 14px;
+    }
+
+    &--xsgray {
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+  }
+
+  &__outer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & > * {
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s ease background-color;
+
+      &:hover {
+        background-color: var(--gray-200);
+      }
+
+      &:active {
+        background-color: var(--gray-300);
+      }
+    }
+  }
+}

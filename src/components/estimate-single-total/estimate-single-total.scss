@@ -1,0 +1,9 @@
+@import "styles/mixins";
+
+.estimate-total {
+  border: 1px solid var(--gray-300);
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+}

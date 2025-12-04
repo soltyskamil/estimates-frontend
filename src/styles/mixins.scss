@@ -1,0 +1,86 @@
+@import './vars.scss';
+
+@mixin xsm {
+  @media (min-width: $breakpoint-xsm) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+@mixin xxl {
+  @media (min-width: $breakpoint-xxl) {
+    @content;
+  }
+}
+
+@mixin xsm-max {
+  @media (max-width: $breakpoint-xsm) {
+    @content;
+  }
+}
+
+@mixin sm-max {
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md-max {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg-max {
+  @media (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl-max {
+  @media (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl-max {
+  @media (max-width: $breakpoint-xxl) {
+    @content;
+  }
+}
+
+@mixin tests-grid-element-layout {
+  padding: 24px 24px 32px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--Colors-Gray-modern-200, #e3e8ef);
+  background: var(--Colors-Gray-modern-25, #fcfcfd);
+  box-shadow:
+    0 28px 28px 0 rgba(31, 33, 40, 0.05),
+    0 7px 16px 0 rgba(31, 33, 40, 0.06);
+
+  [data-theme="dark"] & {
+    box-shadow: none
+  }
+}

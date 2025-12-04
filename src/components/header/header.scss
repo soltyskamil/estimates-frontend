@@ -1,0 +1,112 @@
+@import "styles/mixins.scss";
+
+@keyframes expandMenu {
+  from {
+    transform: translateY(-200px);
+  }
+
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes collapseMenu {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-200px);
+    display: none;
+  }
+}
+
+.app-navigation {
+  background-color: white;
+
+  &__inner {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 999;
+    background-color: white;
+  }
+
+  &__start {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 8px;
+    height: min-content;
+  }
+
+  &__home {
+    background-color: var(--blue-button);
+    text-decoration: none;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    border-radius: 6px;
+    transition: 0.3s ease background-color;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--blue-700);
+    }
+
+    &:active {
+      background-color: var(--blue-800);
+    }
+  }
+
+  &__icon {
+    color: var(--gray-100);
+    font-size: 20px;
+  }
+
+  &__links {
+    height: min-content;
+    display: flex;
+    gap: 8px;
+  }
+
+  &__outer {
+    transform: translateY(-200px);
+    transition: 1s ease transform;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    top: 68px;
+    left: 0;
+    padding: 16px;
+    box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
+    -moz-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
+    -webkit-box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
+    z-index: 10;
+  }
+
+  &__expandable {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  &--open {
+    .app-navigation__outer {
+      transform: translateY(0px);
+    }
+  }
+
+  &__hamburger {
+    cursor: pointer;
+    font-size: 20px;
+    display: none;
+    @include sm-max {
+      display: flex;
+    }
+  }
+}

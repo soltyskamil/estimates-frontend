@@ -1,0 +1,37 @@
+@import "styles/mixins";
+
+.new-material-form {
+  &__label {
+    width: max-content;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+    color: var(--gray-600);
+  }
+
+  &__input {
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 8px 12px;
+    outline: none;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+    color: var(--gray-600);
+
+    &:focus {
+      outline: 1px solid var(--blue-700);
+    }
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+}
