@@ -13,9 +13,12 @@ import {
   useGetSingleEstimate,
 } from "src/api/estimates/useApiEstimates";
 import { useAddEstimateItem } from "src/api/estimates/useApiEstimatesItems";
-import type { AddItemToEstimateBody } from "src/types/estimates.types";
+import type {
+  AddItemToEstimateBody,
+  EstimateItemTypeEnum,
+} from "src/types/estimates.types";
 
-const SINGLE_SELECT_OPTIONS: OptionType[] = [
+const SINGLE_SELECT_OPTIONS: OptionType<EstimateItemTypeEnum>[] = [
   { value: "SERVICE", text: "Dodaj usługę" },
   { value: "MATERIAL", text: "Dodaj materiał" },
 ];
@@ -37,7 +40,7 @@ export const EstimateSingle = () => {
   );
 
   const onActiveOption = useCallback(
-    (op: OptionType) => {
+    (op: OptionType<EstimateItemTypeEnum>) => {
       if (!estimate) return;
 
       switch (op.value) {
@@ -51,8 +54,10 @@ export const EstimateSingle = () => {
                     params: { estimateId: estimate._id },
                     body,
                   });
+
                   closePopup();
                 }}
+                onCancel={closePopup}
               />
             ),
             type: "MATERIAL",
@@ -70,6 +75,7 @@ export const EstimateSingle = () => {
                   });
                   closePopup();
                 }}
+                onCancel={closePopup}
               />
             ),
             type: "SERVICE",

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { getButtonClass } from "../utils/button-utils";
 import "./button.scss";
-import type { CSSProperties } from "react";
+import type { ButtonHTMLAttributes, CSSProperties } from "react";
 export type ButtonVariants = "INVISIBLE" | "FILLED" | "OUTLINED";
 
 type ButtonProps = {
@@ -10,6 +10,7 @@ type ButtonProps = {
   variant: ButtonVariants;
   icon?: React.ReactNode;
   passedStyles?: CSSProperties;
+  buttonType?: ButtonHTMLAttributes<HTMLButtonElement>;
 };
 
 export const Button = ({
@@ -18,11 +19,14 @@ export const Button = ({
   text,
   variant,
   icon,
+  buttonType,
 }: ButtonProps) => {
   const buttonClass = getButtonClass(variant);
+  const type = buttonType ?? ("button" as any);
 
   return (
     <button
+      type={type}
       className={clsx("button", `button--${buttonClass}`)}
       onClick={onPress}
       style={passedStyles}

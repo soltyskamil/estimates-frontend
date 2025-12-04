@@ -1,6 +1,6 @@
 import { FormOutlined } from "@ant-design/icons";
 import "./header.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "../buttons/invisible-button/invisible-button";
 import { MenuOutlined } from "@ant-design/icons";
 import { useCallback, useEffect, useState } from "react";
@@ -12,18 +12,15 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = useCallback(() => setIsMenuOpen((open) => !open), []);
   const { width } = useWindowSize();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!width) return;
     if (width >= MOBILE_BREAKPOINT && isMenuOpen) setIsMenuOpen(false);
   }, [width, isMenuOpen]);
 
-  const goToDashboard = useCallback(() => navigate("/dashboard"), []);
-
   const links = (
     <>
-      <Button text="Rozpocznij" variant="FILLED" onPress={goToDashboard} />
+      <Button text="Rozpocznij" variant="FILLED" onPress={() => {}} />
     </>
   );
 

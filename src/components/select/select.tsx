@@ -1,24 +1,39 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import "./select.scss";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type CSSProperties } from "react";
 import clsx from "clsx";
 import { useOnClickAway } from "src/hooks/useOnClickAway";
-import type { sortBy, sortDir } from "src/context/estimate-context";
-import type { EstimateItemTypeEnum } from "src/types/estimates.types";
-export type OptionType = {
-  value: sortDir | sortBy | EstimateItemTypeEnum;
+
+export type OptionType<T> = {
+  value: T;
   text: string;
 };
 
-type SelectProps = {
-  options: OptionType[];
-  onActiveOption: (op: OptionType) => void;
-  changeName?: boolean;
-  name: string;
+export type WithValueText = {
+  value: string;
+  text: string;
 };
 
-const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
-  const [activeOption, setActiveOption] = useState<OptionType | null>(null);
+type SelectProps<T extends WithValueText> = {
+  options: T[];
+  onActiveOption: (op: T) => void;
+  changeName?: boolean;
+  name: string;
+  passedOption?: T;
+  passedStyles?: CSSProperties;
+};
+
+const Select = <T extends WithValueText>({
+  options,
+  onActiveOption,
+  name,
+  changeName,
+  passedOption,
+  passedStyles,
+}: SelectProps<T>) => {
+  const [activeOption, setActiveOption] = useState<T | null>(() =>
+    passedOption ? passedOption : null
+  );
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
   const expandableRef = useRef<HTMLDivElement>(null);
@@ -27,7 +42,7 @@ const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
     setIsOpen((open) => !open);
   }, []);
 
-  const handleActiveOption = useCallback((option: OptionType) => {
+  const handleActiveOption = useCallback((option: T) => {
     setActiveOption((p) => (p === option ? null : option));
     onActiveOption(option);
     toggleSelect();
@@ -43,8 +58,11 @@ const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
   return (
     <div className={"select"} ref={selectRef}>
       <button
+        type="button"
         className={clsx("select__button", { "select__button--open": isOpen })}
         onClick={toggleSelect}
+        role="option"
+        style={passedStyles}
       >
         {activeOption && changeName ? activeOption.text : name}
         <CaretDownOutlined className="select__icon" />
@@ -57,6 +75,7 @@ const Select = ({ options, onActiveOption, name, changeName }: SelectProps) => {
       >
         {options.map((o, i) => (
           <button
+            type="button"
             onClick={() => handleActiveOption(o)}
             className="select__option"
             key={`se-${o.value}-${i}`}

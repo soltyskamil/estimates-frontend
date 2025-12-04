@@ -20,7 +20,7 @@ type EstimateContextState = {
 };
 
 type EstimateContextActions = {
-  sortEstimates: (ot: OptionType) => void;
+  sortEstimates: <T>(ot: OptionType<T>) => void;
   searchEstimates: (v: string) => void;
   addEstimate: (estimateName: string) => void;
   deleteEstimate: (estimateId: string) => void;
@@ -229,7 +229,7 @@ export const EstimateContextProvider: React.FC<PropsWithChildren> = ({
   );
 
   const sortEstimates = useCallback(
-    (ot: OptionType) => {
+    <T,>(ot: OptionType<T>) => {
       if (ot.value === "desc" || ot.value === "asc") {
         setQueryState((p) => ({
           ...p,

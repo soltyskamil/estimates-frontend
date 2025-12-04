@@ -26,8 +26,6 @@ const EstimateSingleName = ({ name, onSubmit }: EstimateSingleNameProps) => {
 
   useEffect(() => {
     if (!editing && didChange) {
-      console.log(!editing, didChange, !editing && didChange);
-
       onSubmit(inputValue);
     }
   }, [editing, didChange, inputValue]);

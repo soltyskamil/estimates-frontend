@@ -1,7 +1,13 @@
 import { Button } from "src/components/buttons/invisible-button/invisible-button";
 import "./position-form.scss";
 import { useCallback, useState } from "react";
-import type { AddItemToEstimateBody } from "src/types/estimates.types";
+import {
+  type AddItemToEstimateBody,
+  type EstimateItemMaterialUnitsTypeEnum,
+} from "src/types/estimates.types";
+import Select, { type OptionType } from "src/components/select/select";
+import clsx from "clsx";
+import useValidateForm, { type Validator } from "src/hooks/useValidateForm";
 
 export type PositionFormData = {
   name: string;
@@ -12,11 +18,26 @@ export type PositionFormData = {
 
 type PositionFormProps = {
   data?: AddItemToEstimateBody;
-
   onSubmit: (formData: AddItemToEstimateBody) => void;
+  onCancel: () => void;
 };
 
-export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
+const MATERIAL_OPTIONS: OptionType<EstimateItemMaterialUnitsTypeEnum>[] = [
+  { value: "BAG", text: "Worek" },
+  { value: "PIECE", text: "Szt." },
+  { value: "SQRM", text: "m2" },
+  { value: "LM", text: "mb" },
+];
+
+export type FormErrors = {
+  [key in keyof Omit<AddItemToEstimateBody, "type">]: string;
+};
+
+export const PositionForm = ({
+  data,
+  onSubmit,
+  onCancel,
+}: PositionFormProps) => {
   const [formData, setFormData] = useState<AddItemToEstimateBody>(() =>
     data
       ? data
@@ -25,12 +46,28 @@ export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
           type: "MATERIAL",
           totalPrice: 0,
           quantity: 0,
-          unit: "PIECE",
+          unit: undefined,
           unitPrice: 0,
         }
   );
 
-  const { name, quantity, unit, unitPrice } = formData;
+  const validator = useCallback((formData: AddItemToEstimateBody) => {
+    const { name, quantity, unit, unitPrice, totalPrice } = formData;
+    const errors = {} as FormErrors;
+
+    if (totalPrice <= 0) errors.totalPrice = "Zbyt mała wartość";
+    if (name.length <= 0) errors.name = "Zbyt krótka nazwa, minimum dwa znaki";
+    if (!quantity || quantity <= 0) errors.quantity = "Zbyt mała ilośc";
+    if (!unit) errors.unit = "Brak wybranego unit";
+    if (!unitPrice || unitPrice <= 0) errors.unitPrice = "Zbyt mała wartość";
+
+    return errors;
+  }, []) as Validator<Omit<AddItemToEstimateBody, "type">>;
+
+  const { validateForm, getErrorStatus } =
+    useValidateForm<Omit<AddItemToEstimateBody, "type">>(validator);
+
+  const { name, quantity, unitPrice } = formData;
 
   const handleFormChange = useCallback(
     <K extends keyof PositionFormData>(key: K, value: PositionFormData[K]) => {
@@ -39,17 +76,30 @@ export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
     []
   );
 
+  const passedOption:
+    | OptionType<EstimateItemMaterialUnitsTypeEnum>
+    | undefined = formData.unit
+    ? {
+        value: formData.unit,
+        text: MATERIAL_OPTIONS.find((v) => v.value === formData.unit)!.text,
+      }
+    : undefined;
+
   return (
     <form
       className="position-form"
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(formData);
+        const validated = validateForm(formData);
+        if (validated) onSubmit(formData);
       }}
     >
       <div className="position-form__name">
         <label htmlFor="position-form__material">Nazwa materiału</label>
         <input
+          className={clsx("position-form__input", {
+            "position-form__input--error": getErrorStatus("name"),
+          })}
           onChange={(e) => handleFormChange("name", e.target.value)}
           value={name}
           type="text"
@@ -62,6 +112,9 @@ export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
         <div className="position-form__quantity">
           <label htmlFor="position-form__quantity">Ilość</label>
           <input
+            className={clsx("position-form__input", {
+              "position-form__input--error": getErrorStatus("quantity"),
+            })}
             onChange={(e) =>
               handleFormChange("quantity", Number(e.target.value))
             }
@@ -74,17 +127,16 @@ export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
           />
         </div>
         <div className="position-form__unit">
-          <label htmlFor="position-form__unit">Jednostka</label>
-          <select
-            name="position-form__unit"
-            id="position-form__unit"
-            value={unit}
-            onChange={(e) => handleFormChange("unit", e.target.value)}
-          >
-            <option value="szt">Szt.</option>
-            <option value="m2">Szt.</option>
-            <option value="mb">Szt.</option>
-          </select>
+          <Select
+            name="Jednostka"
+            changeName={true}
+            passedOption={passedOption}
+            options={MATERIAL_OPTIONS}
+            onActiveOption={(v) => handleFormChange("unit", v.value)}
+            passedStyles={
+              getErrorStatus("unit") ? { borderColor: "red" } : undefined
+            }
+          />
         </div>
       </div>
       <div className="position-form__unitprice">
@@ -92,6 +144,9 @@ export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
           Cena jednostkowa netto (zł)
         </label>
         <input
+          className={clsx("position-form__input", {
+            "position-form__input--error": getErrorStatus("unitPrice"),
+          })}
           onChange={(e) =>
             handleFormChange("unitPrice", Number(e.target.value))
           }
@@ -105,13 +160,19 @@ export const PositionForm = ({ data, onSubmit }: PositionFormProps) => {
       </div>
       <div className="position-form__total">
         <span className="position-form__totalprice">
-          Wartość pozycji: <b>0,00zł</b>
+          Wartość pozycji:{" "}
+          {(formData.quantity ?? 0) * (formData.unitPrice ?? 0)}
         </span>
       </div>
       <div className="position-form__actions">
-        <Button variant="INVISIBLE" text="Anuluj" onPress={() => null} />
+        <Button variant="INVISIBLE" text="Anuluj" onPress={() => onCancel()} />
 
-        <Button variant="FILLED" text="Zatwierdź" onPress={() => null} />
+        <Button
+          variant="FILLED"
+          text="Zatwierdź"
+          onPress={() => {}}
+          buttonType={{ type: "submit" }}
+        />
       </div>
     </form>
   );

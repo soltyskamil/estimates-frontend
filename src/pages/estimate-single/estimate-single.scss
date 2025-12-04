@@ -5,10 +5,9 @@
     gap: 24px;
     grid-template-columns: 1fr auto;
 
-    // @include md-max {
-    //   display: flex;
-    //   flex-direction: column;
-    // }
+    @include md-max {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__inner {

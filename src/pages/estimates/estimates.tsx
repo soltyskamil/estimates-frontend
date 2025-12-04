@@ -9,7 +9,8 @@ import { usePopupContext } from "src/context/popup-context";
 import { NewMaterialForm } from "src/components/forms/new-material-form/new-material-form";
 import { useCallback } from "react";
 import { useAddEstimate } from "src/api/estimates/useApiEstimates";
-const SELECT_OPTIONS: OptionType[] = [
+
+const SELECT_OPTIONS: OptionType<string>[] = [
   {
     value: "createdAt",
     text: "Data utworzenia",
@@ -21,7 +22,7 @@ const SELECT_OPTIONS: OptionType[] = [
   { value: "totalValue", text: "Suma" },
 ];
 
-const SORT_OPTIONS: OptionType[] = [
+const SORT_OPTIONS: OptionType<string>[] = [
   { value: "asc", text: "Rosnąco" },
   { value: "desc", text: "Malejąco" },
 ];
@@ -38,7 +39,10 @@ const Estimates = () => {
     []
   );
 
-  const onActiveOption = useCallback((op: OptionType) => sortEstimates(op), []);
+  const onActiveOption = useCallback(
+    (op: OptionType<string>) => sortEstimates(op),
+    []
+  );
 
   return (
     <div className="estimates">
@@ -84,6 +88,7 @@ const Estimates = () => {
                       onFormSubmit(estimateName);
                       closePopup();
                     }}
+                    onCancel={() => closePopup()}
                   />
                 ),
               })

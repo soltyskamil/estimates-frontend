@@ -53,6 +53,7 @@ export const EstimatesSingleTable = ({ data }: EstimateSingleTableProps) => {
                   });
                   closePopup();
                 }}
+                onCancel={closePopup}
                 data={{
                   name: data.name,
                   totalPrice: data.totalPrice,
@@ -78,6 +79,7 @@ export const EstimatesSingleTable = ({ data }: EstimateSingleTableProps) => {
                   });
                   closePopup();
                 }}
+                onCancel={closePopup}
                 data={{
                   name: data.name,
                   totalPrice: data.totalPrice ?? 0,
@@ -105,18 +107,17 @@ export const EstimatesSingleTable = ({ data }: EstimateSingleTableProps) => {
               : undefined;
 
           return (
-            <>
-              <PositionTile
-                data={{ ...v, position: i + 1 }}
-                passedStyles={borderBottom}
-                onDelete={async () => {
-                  await deleteEstimateItemAsync({
-                    params: { estimateId: data._id, itemId: v._id },
-                  });
-                }}
-                onEdit={() => handlePopup(v.type, v, data._id)}
-              />
-            </>
+            <PositionTile
+              key={`v-${i}`}
+              data={{ ...v, position: i + 1 }}
+              passedStyles={borderBottom}
+              onDelete={async () => {
+                await deleteEstimateItemAsync({
+                  params: { estimateId: data._id, itemId: v._id },
+                });
+              }}
+              onEdit={() => handlePopup(v.type, v, data._id)}
+            />
           );
         })}
       </div>
