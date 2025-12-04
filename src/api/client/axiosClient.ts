@@ -6,7 +6,9 @@ class AxiosClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: import.meta.env.VITE_BASE_URL,
+      baseURL: import.meta.env.DEV
+        ? import.meta.env.VITE_BASE_URL
+        : import.meta.env.VITE_RAILWAY_URL,
       headers: {
         "Content-Type": "application/json",
       },
