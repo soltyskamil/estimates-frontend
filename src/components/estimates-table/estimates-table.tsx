@@ -50,7 +50,7 @@ export const EstimatesTable = () => {
     if (width <= TABLE_BREAKPOINT && displayTable) setDisplayTable(false);
   }, [width]);
 
-  if (isError) return null;
+  if (isError || !estimatesList) return null;
   if (isLoading) return <span>ładowanie...</span>;
 
   const { data } = estimatesList!;
